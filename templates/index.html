@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<!--
+	Ethereal by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Ethereal by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Wrapper -->
+					<div id="wrapper">
+
+						<!-- Panel (Banner) -->
+							<section class="panel banner right">
+								<div class="content color0 span-3-75">
+									<h1 class="major">Hello,</br>it is a simple to do list</h1>
+									<p>Add your tasks to the list and sign in to save them.</p>
+									<ul class="actions">
+										<li><a href="#first" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="{{ url_for('home') }}" class="button primary color2">Home</a></li>
+									</ul>
+								</div>
+							</section>
+
+						<!-- Panel (Spotlight) -->
+							<section class="panel spotlight small" id="first">
+								<div class="content span-12">
+									<h2 class="major">Sign in if you want to save or view your tasks!</h2>
+									<ul class="actions">
+										<li><a href="#" class="button primary color2">Login</a></li>
+										<li><a href="#" class="button">Register</a></li>
+										<li><a href="#" class="button primary color2">Logout</a></li>
+									</ul>
+								</div>
+								<div class="image filtered tinted" data-position="top left">
+									<img src="static/images/pic01.jpg" alt="" />
+								</div>
+							</section>
+
+						<!-- Panel -->
+<!--						Dodawanie nowych zadań-->
+							<section class="panel color2-alt">
+								<div class="inner columns aligned">
+									<div class="span-4">
+										<h3 class="major">Enter your task</h3>
+										<form method="post" action="{{ url_for('home') }}">
+											<div class="fields">
+												<div class="field">
+													<label for="text">Task</label>
+													<textarea name="text" id="text" placeholder="Write your next task here..." rows="5"></textarea>
+												</div>
+											</div>
+											<ul class="actions">
+												<li><input type="submit" value="Add Task" class="primary color2"></li>
+												<li><input type="reset" value="Reset"></li>
+											</ul>
+										</form>
+									</div>
+								</div>
+							</section>
+				<!-- Panel (Spotlight) -->
+<!--						Wyświetlanie zadań-->
+							{% for number, task in all_tasks %}
+								<section class="panel spotlight small">
+									<div class="content span-8">
+										<h3 class="major">{{ number }}</h3>
+										<p>{{ task.text }}</p>
+										<ul class="actions">
+											<li><a href="{{ url_for('delete_task', task_id=task.id) }}" class="button">Done!</a></li>
+										</ul>
+									</div>
+									<div class="image filtered tinted" data-position="top left">
+									<img src="static/images/pic02.jpg" alt="" />
+								</div>
+								</section>
+							{% endfor %}
+
+						<!-- Copyright -->
+							<div class="copyright">&copy; Wojciech Rajczak. Design: <a href="https://html5up.net">HTML5 UP</a>.</div>
+
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/browser.min.js"></script>
+			<script src="static/assets/js/breakpoints.min.js"></script>
+			<script src="static/assets/js/main.js"></script>
+
+	</body>
+</html>
