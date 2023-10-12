@@ -23,13 +23,10 @@
 						<!-- Panel (Banner) -->
 							<section class="panel banner right">
 								<div class="content color0 span-3-75">
-									<h1 class="major">Hello,</br>it is a simple to do list</h1>
-									<p>Add your tasks to the list and sign in to save them.</p>
+									<h1 class="major">Hello,</br>it is a simple colour palette checker</h1>
+									<p>Add your photo and check the most common colours.</p>
 									<ul class="actions">
 										<li><a href="#first" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="{{ url_for('home') }}" class="button primary color2">Home</a></li>
 									</ul>
 								</div>
 							</section>
@@ -37,55 +34,44 @@
 						<!-- Panel (Spotlight) -->
 							<section class="panel spotlight small" id="first">
 								<div class="content span-12">
-									<h2 class="major">Sign in if you want to save or view your tasks!</h2>
-									<ul class="actions">
-										<li><a href="#" class="button primary color2">Login</a></li>
-										<li><a href="#" class="button">Register</a></li>
-										<li><a href="#" class="button primary color2">Logout</a></li>
-									</ul>
+									<h2 class="major">Upload file</h2>
+									<!-- Adding Flash message here for users trying to register twice -->
+								  {% with messages = get_flashed_messages() %}
+								  {% if messages %}
+								  {% for message in messages %}
+								  <p class="flash">{{ message }}</p>
+								  {% endfor %}
+								  {% endif %}
+								  {% endwith %}
+										<form method="post" action="/upload" enctype="multipart/form-data">
+											<input type="file" name="file" value="Add Photo" class="primary color2">
+											<ul class="actions">
+												<li><input type="submit" value="Send" class="primary color2"></li>
+											</ul>
+										</form>
 								</div>
 								<div class="image filtered tinted" data-position="top left">
 									<img src="static/images/pic01.jpg" alt="" />
 								</div>
 							</section>
 
-						<!-- Panel -->
-<!--						Dodawanie nowych zadań-->
-							<section class="panel color2-alt">
-								<div class="inner columns aligned">
-									<div class="span-4">
-										<h3 class="major">Enter your task</h3>
-										<form method="post" action="{{ url_for('home') }}">
-											<div class="fields">
-												<div class="field">
-													<label for="text">Task</label>
-													<textarea name="text" id="text" placeholder="Write your next task here..." rows="5"></textarea>
-												</div>
-											</div>
-											<ul class="actions">
-												<li><input type="submit" value="Add Task" class="primary color2"></li>
-												<li><input type="reset" value="Reset"></li>
-											</ul>
-										</form>
-									</div>
+					<!-- Panel -->
+							{% if file != "" %}
+							<section class="panel">
+								<div class="intro color2">
+									<h2 class="major">Colors:</h2>
+									<ul>
+									{% for color in colors %}
+										<li>Color: {{ color[0] }}, {{ color[1] }}%</li>
+									{% endfor %}
+									</ul>
+								</div>
+								<div class="gallery">
+									<img src="static/uploads/{{ file }}" alt=""></a>
 								</div>
 							</section>
-				<!-- Panel (Spotlight) -->
-<!--						Wyświetlanie zadań-->
-							{% for number, task in all_tasks %}
-								<section class="panel spotlight small">
-									<div class="content span-8">
-										<h3 class="major">{{ number }}</h3>
-										<p>{{ task.text }}</p>
-										<ul class="actions">
-											<li><a href="{{ url_for('delete_task', task_id=task.id) }}" class="button">Done!</a></li>
-										</ul>
-									</div>
-									<div class="image filtered tinted" data-position="top left">
-									<img src="static/images/pic02.jpg" alt="" />
-								</div>
-								</section>
-							{% endfor %}
+							{% endif %}
+
 
 						<!-- Copyright -->
 							<div class="copyright">&copy; Wojciech Rajczak. Design: <a href="https://html5up.net">HTML5 UP</a>.</div>
