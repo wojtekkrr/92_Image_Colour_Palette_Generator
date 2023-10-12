@@ -35,7 +35,7 @@
 							<section class="panel spotlight small" id="first">
 								<div class="content span-12">
 									<h2 class="major">Upload file</h2>
-									<!-- Adding Flash message here for users trying to register twice -->
+									<!-- Adding Flash message here for problem with file -->
 								  {% with messages = get_flashed_messages() %}
 								  {% if messages %}
 								  {% for message in messages %}
@@ -43,6 +43,7 @@
 								  {% endfor %}
 								  {% endif %}
 								  {% endwith %}
+<!--									Wybór zdjęcia i przesłanie go do main.py-->
 										<form method="post" action="/upload" enctype="multipart/form-data">
 											<input type="file" name="file" value="Add Photo" class="primary color2">
 											<ul class="actions">
@@ -56,6 +57,7 @@
 							</section>
 
 					<!-- Panel -->
+<!--						Wyświetlenie wczytanego obrazu, wraz z kodami kolorów, które najczęściej występują-->
 							{% if file != "" %}
 							<section class="panel">
 								<div class="intro color2">
